@@ -1,0 +1,6 @@
+customer_name,last_contact_days,sla_limit_days,failed_attempts,response_status
+Ravi Kumar,5,7,0,Responded
+Anita Sharma,8,7,2,No Response
+Suresh Reddy,15,10,4,No Response
+Priya Nair,6,10,1,Responded
+Karthik Rao,12,14,3,No Response

@@ -1,0 +1,69 @@
+# ========================
+# OS & Editor files
+# ========================
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# ========================
+# Node.js (Frontend + Backend)
+# ========================
+**/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.env
+.env.local
+
+# ========================
+# Build outputs
+# ========================
+**/dist/
+**/build/
+**/.vite/
+**/out/
+
+# ========================
+# Backend uploads (generated files)
+# ========================
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# ========================
+# Python (AI folder)
+# ========================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+env/
+
+# ========================
+# Python ML artifacts (optional)
+# ========================
+*.pkl
+*.joblib
+*.h5
+
+# ========================
+# CSV outputs (generated)
+# ========================
+ai/*_output.csv
+
+# ========================
+# Logs
+# ========================
+logs/
+*.log
+
+# ========================
+# Coverage & cache
+# ========================
+.cache/
+coverage/

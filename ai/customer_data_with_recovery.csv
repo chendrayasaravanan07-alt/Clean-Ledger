@@ -1,0 +1,6 @@
+customer_name,amount,due_days,past_contact_attempts,response_status,response_score,recovery_probability
+Ravi Kumar,15000,10,2,responsive,1.0,0.7572909507913252
+Anita Sharma,42000,35,5,partially_responsive,0.5,0.540758891569649
+Suresh Reddy,8000,60,1,not_responsive,0.1,0.13627965271479375
+Priya Nair,25000,20,4,responsive,1.0,0.8018944548868732
+Karthik Rao,12000,45,3,partially_responsive,0.5,0.4557409021290965
