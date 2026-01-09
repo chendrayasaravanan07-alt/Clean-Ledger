@@ -1,10 +1,10 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
   LayoutDashboard,
   AlertCircle,
   FileText,
   LogOut,
-  TrendingUp,
+  Eye,
 } from "lucide-react";
 import {
   BarChart,
@@ -19,14 +19,11 @@ import {
 
 function DCAManagerDashboard() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const navigationItems = [
-    {
-      name: "Dashboard",
-      icon: LayoutDashboard,
-      path: "/dca/dashboard",
-      active: true,
-    },
+    { name: "Dashboard", icon: LayoutDashboard, path: "/dca/dashboard" },
+    { name: "View Cases", icon: Eye, path: "/dca/view-cases" },
     { name: "Alerts", icon: AlertCircle, path: "/dca/alerts" },
     { name: "Case Notes", icon: FileText, path: "/dca/case-notes" },
   ];
@@ -57,7 +54,7 @@ function DCAManagerDashboard() {
               key={item.name}
               onClick={() => navigate(item.path)}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg mb-2 transition-all ${
-                item.active
+                location.pathname === item.path
                   ? "bg-indigo-50 text-indigo-600 font-semibold"
                   : "text-gray-600 hover:bg-gray-50"
               }`}
@@ -81,7 +78,9 @@ function DCAManagerDashboard() {
       <div className="flex-1 overflow-auto">
         <div className="p-8">
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-800 mb-2">Dashboard</h1>
+            <h1 className="text-3xl font-bold text-gray-800 mb-2">
+              Dashboard
+            </h1>
             <p className="text-gray-600">
               Welcome back! Here's an overview of your cases.
             </p>
@@ -90,27 +89,25 @@ function DCAManagerDashboard() {
           {/* Stats Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl shadow-lg p-6 text-white">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold">Total Cases</h3>
-              </div>
-              <p className="text-4xl font-bold mb-2">156</p>
+              <h3 className="text-lg font-semibold">Total Cases</h3>
+              <p className="text-4xl font-bold mt-2">156</p>
               <p className="text-blue-100 text-sm">All assigned cases</p>
             </div>
 
             <div className="bg-gradient-to-br from-green-500 to-green-600 rounded-2xl shadow-lg p-6 text-white">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold">Active Cases</h3>
-              </div>
-              <p className="text-4xl font-bold mb-2">89</p>
-              <p className="text-green-100 text-sm">Currently in progress</p>
+              <h3 className="text-lg font-semibold">Active Cases</h3>
+              <p className="text-4xl font-bold mt-2">89</p>
+              <p className="text-green-100 text-sm">
+                Currently in progress
+              </p>
             </div>
 
             <div className="bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-2xl shadow-lg p-6 text-white">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold">Closed Cases</h3>
-              </div>
-              <p className="text-4xl font-bold mb-2">67</p>
-              <p className="text-indigo-100 text-sm">Successfully resolved</p>
+              <h3 className="text-lg font-semibold">Closed Cases</h3>
+              <p className="text-4xl font-bold mt-2">67</p>
+              <p className="text-indigo-100 text-sm">
+                Successfully resolved
+              </p>
             </div>
           </div>
 
@@ -119,14 +116,18 @@ function DCAManagerDashboard() {
             <h2 className="text-xl font-semibold text-gray-800 mb-6">
               Case Overview
             </h2>
-            <ResponsiveContainer width="100%" height={400}>
+            <ResponsiveContainer width="100%" height={350}>
               <BarChart data={caseData}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="value" fill="#6366F1" radius={[8, 8, 0, 0]} />
+                <Bar
+                  dataKey="value"
+                  fill="#6366F1"
+                  radius={[8, 8, 0, 0]}
+                />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -146,13 +147,13 @@ function DCAManagerDashboard() {
                     Alerts
                   </h3>
                   <p className="text-gray-600 text-sm">
-                    5 customers with SLA breach risk
+                    SLA breach risk customers
                   </p>
                 </div>
               </div>
-              <button className="text-indigo-600 font-medium hover:text-indigo-700">
-                View All Alerts →
-              </button>
+              <span className="text-indigo-600 font-medium">
+                View Alerts →
+              </span>
             </div>
 
             <div
@@ -168,13 +169,13 @@ function DCAManagerDashboard() {
                     Case Notes
                   </h3>
                   <p className="text-gray-600 text-sm">
-                    Add notes and track audit logs
+                    Audit logs & remarks
                   </p>
                 </div>
               </div>
-              <button className="text-indigo-600 font-medium hover:text-indigo-700">
+              <span className="text-indigo-600 font-medium">
                 Manage Notes →
-              </button>
+              </span>
             </div>
           </div>
         </div>

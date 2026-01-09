@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LayoutDashboard, AlertCircle, FileText, LogOut, Plus, Search, Calendar } from 'lucide-react';
+import { LayoutDashboard, AlertCircle, FileText, LogOut, Plus, Search, Calendar,Eye} from 'lucide-react';
 
 function DCACaseNotes() {
   const navigate = useNavigate();
@@ -47,7 +47,8 @@ function DCACaseNotes() {
   const navigationItems = [
     { name: 'Dashboard', icon: LayoutDashboard, path: '/dca/dashboard' },
     { name: 'Alerts', icon: AlertCircle, path: '/dca/alerts' },
-    { name: 'Case Notes', icon: FileText, path: '/dca/case-notes', active: true }
+    { name: 'Case Notes', icon: FileText, path: '/dca/case-notes' },
+    { name: 'View Cases', icon: Eye, path: '/dca/view-cases' }
   ];
 
   const noteTypes = ['General', 'Contact', 'Payment Plan', 'Attempted Contact', 'Follow-up', 'Resolved'];

@@ -1,13 +1,14 @@
 import { useNavigate } from 'react-router-dom';
-import { LayoutDashboard, AlertCircle, FileText, LogOut, Download, Clock, AlertTriangle } from 'lucide-react';
+import { LayoutDashboard, AlertCircle, FileText, LogOut, Download, Clock, AlertTriangle ,Eye} from 'lucide-react';
 
 function DCAAlerts() {
   const navigate = useNavigate();
 
   const navigationItems = [
     { name: 'Dashboard', icon: LayoutDashboard, path: '/dca/dashboard' },
-    { name: 'Alerts', icon: AlertCircle, path: '/dca/alerts', active: true },
-    { name: 'Case Notes', icon: FileText, path: '/dca/case-notes' }
+    { name: 'Alerts', icon: AlertCircle, path: '/dca/alerts' },
+    { name: 'Case Notes', icon: FileText, path: '/dca/case-notes' },
+    { name: 'View Cases', icon: Eye, path: '/dca/view-cases' }
   ];
 
   // Mock alerts data
