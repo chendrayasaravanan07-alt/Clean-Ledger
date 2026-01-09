@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Filter,
@@ -10,9 +10,17 @@ import {
   LogOut
 } from 'lucide-react';
 
-function FedexViewSection({ customerData }) {
+function FedexViewSection({ customerData = [] }) {
   const navigate = useNavigate();
   const [filter, setFilter] = useState('all');
+
+  // ✅ DEBUG: See exactly what backend sends
+  useEffect(() => {
+    console.log('📦 Data received from backend:', customerData);
+    if (customerData.length > 0) {
+      console.table(customerData);
+    }
+  }, [customerData]);
 
   const navigationItems = [
     { name: 'Dashboard', icon: LayoutDashboard, path: '/fedex/dashboard' },
@@ -21,11 +29,13 @@ function FedexViewSection({ customerData }) {
     { name: 'DCA Status', icon: Users, path: '/fedex/dca-status' }
   ];
 
-  // ✅ Filter logic (status comes from CSV)
-  const filteredData = customerData.filter(item => {
-    if (filter === 'all') return true;
-    return item.status === filter;
-  });
+  // ✅ SAFE filter (no crash even if empty)
+  const filteredData = Array.isArray(customerData)
+    ? customerData.filter(item => {
+        if (filter === 'all') return true;
+        return item.status === filter;
+      })
+    : [];
 
   // ✅ Export CSV
   const handleExport = () => {
@@ -117,7 +127,7 @@ function FedexViewSection({ customerData }) {
             </button>
           </div>
 
-          {/* Filter Section */}
+          {/* Filter */}
           <div className="bg-white rounded-2xl shadow-lg p-6 mb-6">
             <div className="flex items-center gap-3 mb-4">
               <Filter className="w-6 h-6 text-blue-600" />

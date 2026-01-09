@@ -1,11 +1,10 @@
+import json
 import pandas as pd
 import sys
-import json
 
 def prioritize(csv_path):
     df = pd.read_csv(csv_path, encoding="utf-8-sig")
 
-    # Normalize column names
     df.columns = (
         df.columns
         .str.strip()
@@ -15,18 +14,19 @@ def prioritize(csv_path):
 
     print("DEBUG COLUMNS:", df.columns.tolist(), file=sys.stderr)
 
-    # 🔁 Flexible mapping
-    if "due_days" not in df.columns:
-        if "overdue_days" in df.columns:
-            df.rename(columns={"overdue_days": "due_days"}, inplace=True)
-        elif "days_overdue" in df.columns:
-            df.rename(columns={"days_overdue": "due_days"}, inplace=True)
+    required_columns = {
+        "customer_name",
+        "address",
+        "phone",
+        "amount",
+        "due_days",
+        "status"
+    }
 
-    required_columns = {"amount", "due_days"}
     missing = required_columns - set(df.columns)
-
     if missing:
-        raise Exception(f"Missing columns: {missing}")
+        print(f"Missing columns: {missing}", file=sys.stderr)
+        sys.exit(1)
 
     df["amount"] = pd.to_numeric(df["amount"], errors="coerce")
     df["due_days"] = pd.to_numeric(df["due_days"], errors="coerce")
@@ -43,7 +43,17 @@ def prioritize(csv_path):
 
     df["priority"] = df.apply(priority_logic, axis=1)
 
-    print(df.to_json(orient="records"))
+    output = df[[
+        "customer_name",
+        "address",
+        "phone",
+        "amount",
+        "due_days",
+        "status",
+        "priority"
+    ]].to_dict(orient="records")
+
+    print(json.dumps(output))  # ✅ ONLY JSON
 
 if __name__ == "__main__":
     prioritize(sys.argv[1])

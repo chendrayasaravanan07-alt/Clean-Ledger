@@ -9,7 +9,7 @@ import {
   LayoutDashboard,
   Eye,
   Edit,
-  Users
+  Users,
 } from "lucide-react";
 import {
   BarChart,
@@ -22,7 +22,7 @@ import {
   ResponsiveContainer,
   PieChart,
   Pie,
-  Cell
+  Cell,
 } from "recharts";
 
 function FedexAdminDashboard({
@@ -31,7 +31,7 @@ function FedexAdminDashboard({
   uploadedData,
   setUploadedData,
   uploadedFileName,
-  setUploadedFileName
+  setUploadedFileName,
 }) {
   const navigate = useNavigate();
   const [file, setFile] = useState(null);
@@ -39,13 +39,13 @@ function FedexAdminDashboard({
 
   const paymentData = [
     { name: "Partially Paid", value: 45, count: 119 },
-    { name: "Unpaid", value: 55, count: 81 }
+    { name: "Unpaid", value: 55, count: 81 },
   ];
 
   const dcaPerformanceData = {
     firstCall: { total: 200, completed: 119 },
     attended: { total: 200, completed: 90 },
-    notAttended: { total: 200, completed: 29 }
+    notAttended: { total: 200, completed: 29 },
   };
 
   const COLORS = ["#3B82F6", "#EF4444"];
@@ -70,22 +70,23 @@ function FedexAdminDashboard({
       const formData = new FormData();
       formData.append("file", file);
 
-      const res = await axios.post(
-        "http://localhost:5000/upload",
-        formData,
-        { headers: { "Content-Type": "multipart/form-data" } }
-      );
+      const res = await axios.post("http://localhost:5000/upload", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
+      // ✅ ADD HERE (VERY IMPORTANT)
+      console.log("✅ Backend raw response:", res.data);
 
       // ✅ Backend returns JSON with priority
       const processedData = res.data.map((item, index) => ({
         id: index + 1,
-        name: item.customer_name,
-        address: item.customer_address,
+        customer_name: item.customer_name,
+        address: item.address,
         phone: item.phone,
-        debt: `₹${item.amount}`,
-        dueDate: `${item.due_days} days`,
-        status: "Unpaid",
-        priority: item.priority
+        amount: `₹${item.amount}`,
+        due_days: item.due_days,
+        status: item.status || "Unpaid",
+        priority: item.priority,
       }));
 
       setCustomerData(processedData);
@@ -99,10 +100,15 @@ function FedexAdminDashboard({
   };
 
   const navigationItems = [
-    { name: "Dashboard", icon: LayoutDashboard, path: "/fedex/dashboard", active: true },
+    {
+      name: "Dashboard",
+      icon: LayoutDashboard,
+      path: "/fedex/dashboard",
+      active: true,
+    },
     { name: "View", icon: Eye, path: "/fedex/view" },
     { name: "Update", icon: Edit, path: "/fedex/update" },
-    { name: "DCA Status", icon: Users, path: "/fedex/dca-status" }
+    { name: "DCA Status", icon: Users, path: "/fedex/dca-status" },
   ];
 
   return (
@@ -115,7 +121,7 @@ function FedexAdminDashboard({
         </div>
 
         <nav className="flex-1 p-4">
-          {navigationItems.map(item => (
+          {navigationItems.map((item) => (
             <button
               key={item.name}
               onClick={() => navigate(item.path)}

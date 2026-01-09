@@ -1,25 +1,45 @@
-import { useNavigate } from 'react-router-dom';
-import { LayoutDashboard, AlertCircle, FileText, LogOut, TrendingUp } from 'lucide-react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { useNavigate } from "react-router-dom";
+import {
+  LayoutDashboard,
+  AlertCircle,
+  FileText,
+  LogOut,
+  TrendingUp,
+} from "lucide-react";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 
 function DCAManagerDashboard() {
   const navigate = useNavigate();
 
   const navigationItems = [
-    { name: 'Dashboard', icon: LayoutDashboard, path: '/dca/dashboard', active: true },
-    { name: 'Alerts', icon: AlertCircle, path: '/dca/alerts' },
-    { name: 'Case Notes', icon: FileText, path: '/dca/case-notes' }
+    {
+      name: "Dashboard",
+      icon: LayoutDashboard,
+      path: "/dca/dashboard",
+      active: true,
+    },
+    { name: "Alerts", icon: AlertCircle, path: "/dca/alerts" },
+    { name: "Case Notes", icon: FileText, path: "/dca/case-notes" },
   ];
 
   // Mock case data
   const caseData = [
-    { name: 'Total Cases', value: 156 },
-    { name: 'Active Cases', value: 89 },
-    { name: 'Closed Cases', value: 67 }
+    { name: "Total Cases", value: 156 },
+    { name: "Active Cases", value: 89 },
+    { name: "Closed Cases", value: 67 },
   ];
 
   const handleLogout = () => {
-    navigate('/');
+    navigate("/");
   };
 
   return (
@@ -38,8 +58,8 @@ function DCAManagerDashboard() {
               onClick={() => navigate(item.path)}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg mb-2 transition-all ${
                 item.active
-                  ? 'bg-indigo-50 text-indigo-600 font-semibold'
-                  : 'text-gray-600 hover:bg-gray-50'
+                  ? "bg-indigo-50 text-indigo-600 font-semibold"
+                  : "text-gray-600 hover:bg-gray-50"
               }`}
             >
               <item.icon className="w-5 h-5" />
@@ -62,7 +82,9 @@ function DCAManagerDashboard() {
         <div className="p-8">
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-gray-800 mb-2">Dashboard</h1>
-            <p className="text-gray-600">Welcome back! Here's an overview of your cases.</p>
+            <p className="text-gray-600">
+              Welcome back! Here's an overview of your cases.
+            </p>
           </div>
 
           {/* Stats Cards */}
@@ -70,7 +92,6 @@ function DCAManagerDashboard() {
             <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl shadow-lg p-6 text-white">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold">Total Cases</h3>
-                <TrendingUp className="w-8 h-8 opacity-80" />
               </div>
               <p className="text-4xl font-bold mb-2">156</p>
               <p className="text-blue-100 text-sm">All assigned cases</p>
@@ -79,7 +100,6 @@ function DCAManagerDashboard() {
             <div className="bg-gradient-to-br from-green-500 to-green-600 rounded-2xl shadow-lg p-6 text-white">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold">Active Cases</h3>
-                <TrendingUp className="w-8 h-8 opacity-80" />
               </div>
               <p className="text-4xl font-bold mb-2">89</p>
               <p className="text-green-100 text-sm">Currently in progress</p>
@@ -88,7 +108,6 @@ function DCAManagerDashboard() {
             <div className="bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-2xl shadow-lg p-6 text-white">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold">Closed Cases</h3>
-                <TrendingUp className="w-8 h-8 opacity-80" />
               </div>
               <p className="text-4xl font-bold mb-2">67</p>
               <p className="text-indigo-100 text-sm">Successfully resolved</p>
@@ -97,7 +116,9 @@ function DCAManagerDashboard() {
 
           {/* Bar Chart */}
           <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
-            <h2 className="text-xl font-semibold text-gray-800 mb-6">Case Overview</h2>
+            <h2 className="text-xl font-semibold text-gray-800 mb-6">
+              Case Overview
+            </h2>
             <ResponsiveContainer width="100%" height={400}>
               <BarChart data={caseData}>
                 <CartesianGrid strokeDasharray="3 3" />
@@ -112,15 +133,21 @@ function DCAManagerDashboard() {
 
           {/* Quick Actions */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-shadow cursor-pointer"
-                 onClick={() => navigate('/dca/alerts')}>
+            <div
+              className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-shadow cursor-pointer"
+              onClick={() => navigate("/dca/alerts")}
+            >
               <div className="flex items-center gap-4 mb-4">
                 <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
                   <AlertCircle className="w-6 h-6 text-red-600" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-800">Alerts</h3>
-                  <p className="text-gray-600 text-sm">5 customers with SLA breach risk</p>
+                  <h3 className="text-lg font-semibold text-gray-800">
+                    Alerts
+                  </h3>
+                  <p className="text-gray-600 text-sm">
+                    5 customers with SLA breach risk
+                  </p>
                 </div>
               </div>
               <button className="text-indigo-600 font-medium hover:text-indigo-700">
@@ -128,15 +155,21 @@ function DCAManagerDashboard() {
               </button>
             </div>
 
-            <div className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-shadow cursor-pointer"
-                 onClick={() => navigate('/dca/case-notes')}>
+            <div
+              className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-shadow cursor-pointer"
+              onClick={() => navigate("/dca/case-notes")}
+            >
               <div className="flex items-center gap-4 mb-4">
                 <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center">
                   <FileText className="w-6 h-6 text-indigo-600" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-800">Case Notes</h3>
-                  <p className="text-gray-600 text-sm">Add notes and track audit logs</p>
+                  <h3 className="text-lg font-semibold text-gray-800">
+                    Case Notes
+                  </h3>
+                  <p className="text-gray-600 text-sm">
+                    Add notes and track audit logs
+                  </p>
                 </div>
               </div>
               <button className="text-indigo-600 font-medium hover:text-indigo-700">
